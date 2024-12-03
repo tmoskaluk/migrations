@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.15" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.15" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cars.Customers.Crud\Cars.Customers.Crud.csproj" />
+    <ProjectReference Include="..\Cars.DependencyInjection\Cars.Dependency.csproj" />
+    <ProjectReference Include="..\Cars.ReadModel\Cars.ReadModel.csproj" />
+    <ProjectReference Include="..\Cars.Sales.Core.Application\Cars.Sales.Core.Application.csproj" />
+    <ProjectReference Include="..\Cars.Sales.Core.Infrastructure\Cars.Sales.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\Cars.SharedKernel\Cars.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

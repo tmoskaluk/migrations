@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cars.Sales.Core.Domain\Cars.Sales.Core.Domain.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cars.Sales.Core.Infrastructure\Cars.Sales.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\Cars.SharedKernel\Cars.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

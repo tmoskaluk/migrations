@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Factories\**" />
+    <EmbeddedResource Remove="Factories\**" />
+    <None Remove="Factories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cars.SharedKernel\Cars.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

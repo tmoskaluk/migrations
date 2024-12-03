@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cars.Customers.Crud\Cars.Customers.Crud.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cars.ReadModel\Cars.ReadModel.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cars.Sales.Core.Application\Cars.Sales.Core.Application.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cars.Sales.Core.Domain\Cars.Sales.Core.Domain.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cars.Sales.Core.Infrastructure\Cars.Sales.Core.Infrastructure.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Cars.SharedKernel\Cars.SharedKernel.csproj" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>
