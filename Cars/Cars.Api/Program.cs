@@ -22,7 +22,7 @@ try
     builder.Services.AddCarsProject(builder.Configuration);
 
     var app = builder.Build();
-    //CarsStartup.EnsureDatabaseStructure(app.Services);
+    CarsStartup.EnsureDatabaseStructure(app.Services);
 
     if (app.Environment.IsDevelopment())
     {
