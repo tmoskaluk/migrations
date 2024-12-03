@@ -18,14 +18,14 @@ public class CustomersDbContext(DbContextOptions<CustomersDbContext> options) : 
     public DbSet<Customer> Customers { get; set; }
 }
 
-//public class CustomersDbContextFactory : IDesignTimeDbContextFactory<CustomersDbContext>
-//{
-//    private const string DESIGN_CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Cars;Integrated Security=True;TrustServerCertificate=True";
+public class CustomersDbContextFactory : IDesignTimeDbContextFactory<CustomersDbContext>
+{
+    private const string DESIGN_CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Cars;Integrated Security=True;TrustServerCertificate=True";
 
-//    public CustomersDbContext CreateDbContext(string[] args)
-//    {
-//        var builder = new DbContextOptionsBuilder<CustomersDbContext>();
-//        builder.UseSqlServer(DESIGN_CONNECTION_STRING, options => options.MigrationsHistoryTable(CustomersDbContext.MigrationsHistoryTable));
-//        return new CustomersDbContext(builder.Options);
-//    }
-//}
+    public CustomersDbContext CreateDbContext(string[] args)
+    {
+        var builder = new DbContextOptionsBuilder<CustomersDbContext>();
+        builder.UseSqlServer(DESIGN_CONNECTION_STRING, options => options.MigrationsHistoryTable(CustomersDbContext.MigrationsHistoryTable));
+        return new CustomersDbContext(builder.Options);
+    }
+}

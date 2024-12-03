@@ -1,6 +1,7 @@
 ﻿using Cars.Sales.Core.Domain.Entities;
 using Cars.Sales.Core.Infrastructure.Mappings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Cars.Sales.Core.Infrastructure;
 
@@ -24,14 +25,14 @@ public class SalesDbContext(DbContextOptions<SalesDbContext> options) : DbContex
     public DbSet<Order> Orders { get; set; }
 }
 
-//public class SalesDbContextFactory : IDesignTimeDbContextFactory<SalesDbContext>
-//{
-//    private const string DESIGN_CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Cars;Integrated Security=True;TrustServerCertificate=True";
+public class SalesDbContextFactory : IDesignTimeDbContextFactory<SalesDbContext>
+{
+    private const string DESIGN_CONNECTION_STRING = @"Data Source=.\SQLEXPRESS;Initial Catalog=Cars;Integrated Security=True;TrustServerCertificate=True";
 
-//    public SalesDbContext CreateDbContext(string[] args)
-//    {
-//        var builder = new DbContextOptionsBuilder<SalesDbContext>();
-//        builder.UseSqlServer(DESIGN_CONNECTION_STRING, options => options.MigrationsHistoryTable(SalesDbContext.MigrationsHistoryTable));
-//        return new SalesDbContext(builder.Options);
-//    }
-//}
+    public SalesDbContext CreateDbContext(string[] args)
+    {
+        var builder = new DbContextOptionsBuilder<SalesDbContext>();
+        builder.UseSqlServer(DESIGN_CONNECTION_STRING, options => options.MigrationsHistoryTable(SalesDbContext.MigrationsHistoryTable));
+        return new SalesDbContext(builder.Options);
+    }
+}
