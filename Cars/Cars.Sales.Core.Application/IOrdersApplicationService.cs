@@ -7,4 +7,6 @@ public interface IOrdersApplicationService
     OrderDto PlaceOrder(OfferDto offer, SalesCustomerDto customer);
 
     void ApplyDiscount(int orderId, decimal discount, string comment);
+
+    void Reject(int orderId);
 }

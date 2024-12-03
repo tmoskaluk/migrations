@@ -17,14 +17,13 @@ try
     builder.Host.UseNLog();
     builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
     builder.Services.AddControllers();
-    builder.Services.AddCarsProject(builder.Configuration);
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    
-    var app = builder.Build();
-    CarsStartup.EnsureDatabaseStructure(app.Services);
+    builder.Services.AddCarsProject(builder.Configuration);
 
-    // Configure the HTTP request pipeline.
+    var app = builder.Build();
+    //CarsStartup.EnsureDatabaseStructure(app.Services);
+
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

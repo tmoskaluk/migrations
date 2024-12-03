@@ -1,23 +1,19 @@
 ﻿using System;
 using Cars.Sales.Core.Domain.Entities;
-using Cars.SharedKernel.Enums;
 
 namespace Cars.Customers.Crud.Models;
 
 public class Customer : AggregateRoot<int>
 {
-    public Customer(CustomerType type, string identityNo, string firstName, string lastName, string phone)
+    public Customer(string identityNo, string firstName, string lastName, string phone)
     {
         Validate(firstName, lastName, phone);
 
-        Type = type;
         IdentityNo = identityNo;
         FirstName = firstName;
         LastName = lastName;
         Phone = phone;
     }
-
-    public CustomerType Type { get; set; }
 
     public string IdentityNo { get; set; }
 

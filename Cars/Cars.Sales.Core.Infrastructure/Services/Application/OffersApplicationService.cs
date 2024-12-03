@@ -6,6 +6,7 @@ using Cars.Sales.Core.Domain.Repositories;
 using Cars.Sales.Core.Domain.Services;
 using Cars.Sales.Core.Domain.ValueObjects;
 using Cars.SharedKernel;
+using System;
 
 namespace Cars.Sales.Core.Infrastructure.Services.Application;
 
@@ -14,7 +15,7 @@ public class OffersApplicationService(IAppLogger logger, ISalesUnitOfWork unitOf
 {
     public OfferDto CreateOffer(CarConfigurationDto dto)
     {
-        var carConfiguration = new CarConfiguration(dto.Model, new Engine(dto.EngineCode, dto.EngineType, dto.EngineCapacity), dto.GearboxType, dto.Version, dto.Color);
+        var carConfiguration = new CarConfiguration(dto.Model, new Engine(dto.EngineCode, dto.EngineType, dto.EngineCapacity), dto.Version);
         var price = priceService.CalculatePrice(carConfiguration);
         var offer = new Offer(carConfiguration, price);
         offersRepository.Add(offer);
@@ -24,10 +25,19 @@ public class OffersApplicationService(IAppLogger logger, ISalesUnitOfWork unitOf
         return new OfferDto(offer);
     }
 
+    public void DeleteOffer(Guid offerId)
+    {
+        var offer = offersRepository.Get(offerId);
+        offersRepository.Remove(offer);
+        unitOfWork.Commit();
+        logger.Info($"Offer {offerId} has been deleted");
+    }
+
     public void DeleteExpiredOffers()
     {
-        offersRepository.RemoveExpiredOffers();
+        var expirationDate = DateTime.Now;
+        offersRepository.RemoveExpiredOffers(expirationDate);
         unitOfWork.Commit();
-        logger.Info($"Expired offers deleted");
+        logger.Info($"Offers with expiration date before {expirationDate} were deleted");
     }
 }

@@ -19,9 +19,7 @@ public class OfferDto
             EngineType = c.Engine.Type,
             EngineCode = c.Engine.Code,
             EngineCapacity = c.Engine.Capacity,
-            GearboxType = c.GearboxType,
-            Version = c.Version,
-            Color = c.Color
+            Version = c.Version
         };
     }
 

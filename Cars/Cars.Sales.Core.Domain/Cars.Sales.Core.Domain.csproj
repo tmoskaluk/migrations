@@ -5,12 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Factories\**" />
-    <EmbeddedResource Remove="Factories\**" />
-    <None Remove="Factories\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Cars.SharedKernel\Cars.SharedKernel.csproj" />
   </ItemGroup>
 

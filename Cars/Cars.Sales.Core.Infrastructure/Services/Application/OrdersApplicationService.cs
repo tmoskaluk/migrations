@@ -33,4 +33,12 @@ public class OrdersApplicationService(IAppLogger logger, IOrdersRepository order
         unitOfWork.Commit();
         logger.Info($"Discount applied [OrderId = {order.Id}, Discount = {discount}]");
     }
+
+    public void Reject(int orderId)
+    {
+        var order = ordersRepository.Get(orderId);
+        order.Reject();
+        unitOfWork.Commit();
+        logger.Info($"Order rejected [OrderId = {order.Id}]");
+    }
 }
