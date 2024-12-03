@@ -1,21 +1,16 @@
-﻿using Cars.SharedKernel.Sales.ViewModels;
+﻿using System;
+using Cars.SharedKernel.Sales.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 using Cars.Sales.Core.Infrastructure;
 
 namespace Cars.ReadModel.Sales.Implementation;
 
-public class OrdersQuery : IOrdersQuery
+public class OrdersQuery(SalesDbContext context) : IOrdersQuery
 {
-    private readonly SalesDbContext context;
-
-    public OrdersQuery(SalesDbContext context)
-    {
-        this.context = context;
-    }
-
     public IList<OrderListViewModel> GetOrders()
     {
-        return this.context.OrderListView.OrderBy(x => x.CreationDate).ToList();
+        throw new NotImplementedException();
+        
+        //return context.OrderListView.OrderBy(x => x.CreationDate).ToList();
     }
 }

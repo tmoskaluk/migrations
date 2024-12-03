@@ -11,5 +11,5 @@ public interface IOffersRepository
 
     void Remove(Offer offer);
 
-    void RemoveExpiredOffers();
+    void RemoveExpiredOffers(DateTime expirationDate);
 }
