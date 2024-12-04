@@ -5,6 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Migrations\20241204000059_OrderListViewAdded_Up.sql" />
+    <None Remove="Migrations\20241204000919_OrderListViewChanged_Down.sql" />
+    <None Remove="Migrations\20241204000919_OrderListViewChanged_Up.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\20241204000059_OrderListViewAdded_Up.sql" />
+    <EmbeddedResource Include="Migrations\20241204000919_OrderListViewChanged_Down.sql" />
+    <EmbeddedResource Include="Migrations\20241204000919_OrderListViewChanged_Up.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="NLog" Version="5.3.4" />
     <PackageReference Include="System.Reactive" Version="6.0.1" />

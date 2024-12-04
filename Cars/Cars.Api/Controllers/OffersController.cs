@@ -17,17 +17,19 @@ public class OffersController(IOffersApplicationService offersService, IOffersQu
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] CarConfigurationDto dto)
+    public IActionResult Create([FromBody] CarConfigurationDto dto)
     {
         if (dto == null) return BadRequest();
         var offer = offersService.CreateOffer(dto);
-        return Ok(offer.Id);
+
+        var location = Url.Action(nameof(Create), new { id = offer.Id }) ?? $"/{offer.Id}";
+        return Created(location, offer.Id);
     }
 
     [HttpDelete("{id}")]
     public IActionResult Delete(Guid id)
     {
         offersService.DeleteOffer(id);
-        return Ok();
+        return NoContent();
     }
 }

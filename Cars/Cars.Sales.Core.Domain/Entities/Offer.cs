@@ -35,3 +35,4 @@ public class Offer : AggregateRoot<Guid>
         ExpirationDate = expirationDate;
     }
 }
+

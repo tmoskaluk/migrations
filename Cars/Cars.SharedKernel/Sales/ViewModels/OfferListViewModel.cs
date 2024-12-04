@@ -9,4 +9,6 @@ public class OfferListViewModel
     public DateTime CreationDate { get; set; }
 
     public decimal TotalPrice { get; set; }
+
+    public string Model { get; set; }
 }
