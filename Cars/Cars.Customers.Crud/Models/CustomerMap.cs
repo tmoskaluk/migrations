@@ -10,11 +10,13 @@ internal class CustomerMap : IEntityTypeConfiguration<Customer>
         builder.ToTable("Customers");
 
         builder.HasKey(x => x.Id);
+        builder.HasIndex(x => x.IdentityNo).IsUnique();
+
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
-        //builder.Property(x => x.Type).IsRequired();
-        builder.Property(x => x.IdentityNo).HasMaxLength(64).IsRequired();
-        builder.Property(x => x.FirstName).HasMaxLength(100).IsRequired();
-        builder.Property(x => x.LastName).HasMaxLength(100).IsRequired();
-        builder.Property(x => x.Phone).HasMaxLength(20).IsRequired();
+        builder.Property(x => x.CustomerType).IsRequired();
+        builder.Property(x => x.IdentityNo).HasMaxLength(Customer.IdentityNoMaxLength).IsRequired();
+        builder.Property(x => x.FirstName).HasMaxLength(Customer.NameMaxLength).IsRequired();
+        builder.Property(x => x.LastName).HasMaxLength(Customer.NameMaxLength).IsRequired();
+        builder.Property(x => x.Phone).HasMaxLength(Customer.PhoneMaxLength).IsRequired();
     }
 }

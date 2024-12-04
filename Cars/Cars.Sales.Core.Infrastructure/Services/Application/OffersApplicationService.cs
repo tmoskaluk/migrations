@@ -15,7 +15,7 @@ public class OffersApplicationService(IAppLogger logger, ISalesUnitOfWork unitOf
 {
     public OfferDto CreateOffer(CarConfigurationDto dto)
     {
-        var carConfiguration = new CarConfiguration(dto.Model, new Engine(dto.EngineCode, dto.EngineType, dto.EngineCapacity), dto.Version);
+        var carConfiguration = new CarConfiguration(dto.Model, new Engine(dto.EngineCode, dto.EngineType, dto.EngineCapacity), dto.GearboxType, dto.Version, dto.Color);
         var price = priceService.CalculatePrice(carConfiguration);
         var offer = new Offer(carConfiguration, price);
         offersRepository.Add(offer);

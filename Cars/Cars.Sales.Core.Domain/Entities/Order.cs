@@ -30,15 +30,11 @@ public class Order : AggregateRoot<int>
         };
     }
 
-    private Order()
-    {
-    }
-
     #region Properties
 
     public CarConfiguration Configuration { get; private set; }
 
-    public Customer Customer { get; private set; } //TODO include after first migration
+    public Customer Customer { get; private set; }
 
     public DateTime CreationDate { get; private set; }
 
@@ -46,7 +42,7 @@ public class Order : AggregateRoot<int>
 
     public DateTime? ReceivedDate { get; private set; }
 
-    public decimal OriginalPrice { get; private set; }
+    public decimal OriginalPrice { get; private init; }
 
     public decimal Price { get; private set; }
 
@@ -61,27 +57,33 @@ public class Order : AggregateRoot<int>
     public void ApplyDiscount(decimal discount)
     {
         if (discount <= 0) throw new ArgumentException("Wrong discount", nameof(discount));
-        if (discount > OriginalPrice * MAXIMUM_PERCENT_DISCOUNT) throw new Exception("The maximum discount limit is exceeded");
-        if (Status != OrderStatus.Created) throw new Exception($"Applying discount is available only for order with {OrderStatus.Created} status");
+        if (discount > OriginalPrice * MAXIMUM_PERCENT_DISCOUNT) throw new ArgumentException("The maximum discount limit is exceeded");
+        if (Status != OrderStatus.Created) throw new ArgumentException($"Applying discount is available only for order with {OrderStatus.Created} status");
 
         Price = OriginalPrice - discount;
     }
 
     public void Confirm(DateTime plannedDeliveryDate)
     {
+        if (plannedDeliveryDate <= DateTime.Now) throw new ArgumentException("Can't set the past date for the order");
+        if (Status != OrderStatus.Created) throw new ArgumentException($"Confirmation is available only for order with {OrderStatus.Created} status");
+
         Status = OrderStatus.Confirmed;
         PlannedDeliveryDate = plannedDeliveryDate;
     }
 
     public void UpdatePlannedDeliveryDate(DateTime plannedDeliveryDate)
     {
-        if (Status != OrderStatus.Confirmed) throw new Exception("Can't define planned delivery date for closed or not confirmed orders");
+        if (Status != OrderStatus.Confirmed) throw new ArgumentException("Can't define planned delivery date for closed or not confirmed orders");
+        if (plannedDeliveryDate <= DateTime.Now) throw new ArgumentException("Can't set the past date for the order");
 
         PlannedDeliveryDate = plannedDeliveryDate;
     }
 
     public void Finalize(DateTime receivedDate)
     {
+        if (Status != OrderStatus.Confirmed) throw new ArgumentException("Can't finalize order without confirmation");
+
         ReceivedDate = receivedDate;
         Status = OrderStatus.Finalized;
     }
@@ -93,7 +95,7 @@ public class Order : AggregateRoot<int>
 
     public void Reject()
     {
-        if (Status == OrderStatus.Finalized) throw new Exception("Can't reject closed order");
+        if (Status == OrderStatus.Finalized) throw new ArgumentException("Can't reject closed order");
 
         Status = OrderStatus.Rejected;
     }

@@ -21,7 +21,7 @@ public static class DependencyExtensions
     /// <summary>
     /// Add dependencies related to Cars project
     /// </summary>
-    public static void AddCarsProject(this IServiceCollection services, IConfiguration configuration)
+    public static void AddCarsProject(this IServiceCollection services, IConfiguration configuration, bool isDevelopment)
     {
         services.AddSingleton<IAppLogger, AppLogger>();
         services.AddTransient<IOffersApplicationService, OffersApplicationService>();
@@ -33,9 +33,15 @@ public static class DependencyExtensions
         services.AddTransient<IOrdersQuery, OrdersQuery>();
         services.AddTransient<ISalesUnitOfWork, SalesUnitOfWork>();
 
-        services.AddDbContext<SalesDbContext>(options => 
-            options.UseSqlServer(configuration.GetConnectionString("CarsDb"), c => c.MigrationsHistoryTable(SalesDbContext.MigrationsHistoryTable)));
-        services.AddDbContext<CustomersDbContext>(options => 
-            options.UseSqlServer(configuration.GetConnectionString("CarsDb"), c => c.MigrationsHistoryTable(CustomersDbContext.MigrationsHistoryTable)));
+        services.AddDbContext<SalesDbContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("CarsDb"), c => c.MigrationsHistoryTable(SalesDbContext.MigrationsHistoryTable));
+            options.EnableSensitiveDataLogging(isDevelopment);
+        });
+        services.AddDbContext<CustomersDbContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("CarsDb"), c => c.MigrationsHistoryTable(CustomersDbContext.MigrationsHistoryTable));
+            options.EnableSensitiveDataLogging(isDevelopment);
+        });
     }
 }

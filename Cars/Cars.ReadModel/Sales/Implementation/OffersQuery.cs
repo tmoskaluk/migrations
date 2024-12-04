@@ -5,19 +5,16 @@ using Cars.SharedKernel.Sales.ViewModels;
 
 namespace Cars.ReadModel.Sales.Implementation;
 
-public class OffersQuery : IOffersQuery
+public class OffersQuery(SalesDbContext context) : IOffersQuery
 {
-    private readonly SalesDbContext context;
-
-    public OffersQuery(SalesDbContext context)
-    {
-        this.context = context;
-    }
-
     public IList<OfferListViewModel> GetOffers()
     {
-        return this.context.Offers.Select(o => new OfferListViewModel { OfferId = o.Id, CreationDate = o.CreationDate, TotalPrice = o.TotalPrice })
-            .OrderBy(o => o.CreationDate)
-            .ToList();
+        return context.Offers.Select(o => new OfferListViewModel
+        {
+            OfferId = o.Id,
+            CreationDate = o.CreationDate,
+            TotalPrice = o.TotalPrice,
+            Model = o.Configuration.Model
+        }).OrderBy(o => o.CreationDate).ToList();
     }
 }

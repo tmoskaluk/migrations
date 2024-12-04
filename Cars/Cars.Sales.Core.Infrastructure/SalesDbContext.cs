@@ -1,5 +1,6 @@
 ﻿using Cars.Sales.Core.Domain.Entities;
 using Cars.Sales.Core.Infrastructure.Mappings;
+using Cars.SharedKernel.Sales.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
@@ -18,11 +19,21 @@ public class SalesDbContext(DbContextOptions<SalesDbContext> options) : DbContex
         modelBuilder.ApplyConfiguration(new OfferMap());
         modelBuilder.ApplyConfiguration(new OrderMap());
         modelBuilder.ApplyConfiguration(new OrderCommentMap());
+
+        modelBuilder.Entity<OrderListViewModel>(e =>
+        {
+            e.HasNoKey();
+            e.ToView("OrderListView");
+            e.Property(p => p.Discount).HasColumnType(DbMoneyType);
+            e.Property(p => p.Price).HasColumnType(DbMoneyType);
+        });
     }
 
     public DbSet<Offer> Offers { get; set; }
 
     public DbSet<Order> Orders { get; set; }
+
+    public DbSet<OrderListViewModel> OrderListView { get; set; }
 }
 
 public class SalesDbContextFactory : IDesignTimeDbContextFactory<SalesDbContext>

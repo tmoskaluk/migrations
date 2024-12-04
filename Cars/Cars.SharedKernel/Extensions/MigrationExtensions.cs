@@ -3,12 +3,12 @@ using System.Reflection;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Cars.Sales.Core.Infrastructure;
+namespace Cars.SharedKernel.Extensions;
 
 public static class MigrationExtensions
 {
     /// <summary>
-    /// Builds an Microsoft.EntityFrameworkCore.Migrations.Operations.SqlOperation to execute SQL from embedded resource script file
+    /// Builds a Microsoft.EntityFrameworkCore.Migrations.Operations.SqlOperation to execute SQL from embedded resource script file
     /// with the same name as the migration with added _Up.sql or _Down.sql postfix
     /// </summary>
     public static void ExecuteSqlEmbeddedResourceScript<T>(this MigrationBuilder migrationBuilder, MigrationType type) where T : Migration

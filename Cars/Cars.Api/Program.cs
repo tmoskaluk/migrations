@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Cars.Api.Middleware;
 using Cars.Dependency;
 using Cars.Sales.Core.Infrastructure;
@@ -13,22 +14,27 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetLogger(log
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-
     builder.Host.UseNLog();
-    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-    builder.Services.AddControllers();
+
+    builder.Services
+        .AddExceptionHandler<GlobalExceptionHandler>()
+        .AddControllers()
+        .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
-    builder.Services.AddCarsProject(builder.Configuration);
+    builder.Services.AddCarsProject(builder.Configuration, builder.Environment.IsDevelopment());
 
     var app = builder.Build();
-    CarsStartup.EnsureDatabaseStructure(app.Services);
-
+    
+    app.UseExceptionHandler(_ => { });
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    CarsStartup.EnsureDatabaseStructure(app.Services);
 
     app.UseHttpsRedirection();
     app.UseAuthorization();
